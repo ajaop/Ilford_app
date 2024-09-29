@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305142115228",
+    "project_id": "ilford-7ba6f",
+    "storage_bucket": "ilford-7ba6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305142115228:android:037a6c60cdd850ea9bb659",
+        "android_client_info": {
+          "package_name": "com.example.ilford_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDarlGvmK-BZT1k7maYoEwTRSJQkW1wl2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
