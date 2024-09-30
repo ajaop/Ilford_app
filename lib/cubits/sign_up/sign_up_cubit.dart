@@ -76,4 +76,25 @@ class SignUpCubit extends Cubit<SignUpState> with Validator {
       emit(state.copyWith(status: SignUpStatus.failure));
     }
   }
+
+  Future<void> signUpFormSubmitted() async {
+    if (!state.isValid) return;
+    emit(state.copyWith(status: SignUpStatus.loading));
+    try {
+      await _authenticationRepository.signUp(
+        email: state.email,
+        password: state.password,
+      );
+      emit(state.copyWith(status: SignUpStatus.success));
+    } on SignUpWithEmailAndPasswordFailure catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.message,
+          status: SignUpStatus.failure,
+        ),
+      );
+    } catch (_) {
+      emit(state.copyWith(status: SignUpStatus.failure));
+    }
+  }
 }

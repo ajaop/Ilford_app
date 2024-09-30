@@ -11,7 +11,7 @@ final class SignUpState extends Equatable {
   final bool confirmPasswordObscureText;
   final bool isValid;
   final SignUpStatus status;
-  final String errorMessage;
+  final String? errorMessage;
 
   const SignUpState(
       {this.firstName = '',
@@ -24,7 +24,7 @@ final class SignUpState extends Equatable {
       this.confirmPasswordObscureText = true,
       this.isValid = false,
       this.status = SignUpStatus.initial,
-      this.errorMessage = ''});
+      this.errorMessage});
 
   @override
   List<Object> get props => [
@@ -37,8 +37,7 @@ final class SignUpState extends Equatable {
         passwordObscureText,
         confirmPasswordObscureText,
         isValid,
-        status,
-        errorMessage
+        status
       ];
 
   SignUpState copyWith(
