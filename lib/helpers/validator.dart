@@ -1,7 +1,7 @@
 mixin Validator {
   // Email validation
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value == '') {
       return 'Email is required';
     } else if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
         .hasMatch(value)) {
@@ -12,7 +12,7 @@ mixin Validator {
 
   // Password validation
   String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value == '') {
       return 'Password is required';
     } else if (value.length < 6) {
       return 'Password must be at least 6 characters';
@@ -22,7 +22,7 @@ mixin Validator {
 
   // Confirm password validation
   String? validateConfirmPassword(String? value, String password) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value == '') {
       return 'Confirm password is required';
     } else if (value != password) {
       return 'Confirm password does not match';
@@ -32,7 +32,7 @@ mixin Validator {
 
   // First Name validation
   String? validateFirstName(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value == '') {
       return 'First Name is required';
     }
     return null;
@@ -40,7 +40,7 @@ mixin Validator {
 
   // Last Name validation
   String? validateLastName(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value == '') {
       return 'Last Name is required';
     }
     return null;

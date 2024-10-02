@@ -1,10 +1,12 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilford_app/cubits/sign_up/sign_up_cubit.dart';
 import 'package:ilford_app/helpers/custom_colors.dart';
 import 'package:ilford_app/helpers/enums.dart';
 import 'package:ilford_app/helpers/validator.dart';
+import 'package:ilford_app/services/firestore_service.dart';
 import 'package:ilford_app/ui/home_screen.dart';
 import 'package:ilford_app/ui/signin.dart';
 import 'package:ilford_app/ui/widgets/form_input.dart';
@@ -25,8 +27,8 @@ class SignUp extends StatelessWidget with Validator {
         useMaterial3: true,
       ),
       home: BlocProvider<SignUpCubit>(
-        create: (context) =>
-            SignUpCubit(context.read<AuthenticationRepository>()),
+        create: (context) => SignUpCubit(
+            context.read<AuthenticationRepository>(), FirestoreService()),
         child: Scaffold(
           body: SafeArea(
             child: Padding(
@@ -190,7 +192,7 @@ class SignUp extends StatelessWidget with Validator {
                                             borderRadius:
                                                 BorderRadius.circular(15.0)),
                                         textStyle: GoogleFonts.robotoSerif()),
-                                    onPressed: state.isValid &&
+                                    onPressed: state.isValid == true &&
                                             state.status != SignUpStatus.loading
                                         ? () => context
                                             .read<SignUpCubit>()

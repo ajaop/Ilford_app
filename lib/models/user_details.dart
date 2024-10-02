@@ -4,7 +4,7 @@ class UserDetails {
   String email;
   String? phone;
   bool isVerified;
-  String dateAdded;
+  DateTime dateAdded;
 
   UserDetails(
       {required this.firstName,
@@ -20,7 +20,7 @@ class UserDetails {
       String? email,
       String? phone,
       bool? isVerified,
-      String? dateAdded}) {
+      DateTime? dateAdded}) {
     return UserDetails(
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,

@@ -1,15 +1,21 @@
+import 'dart:ffi';
+
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ilford_app/helpers/enums.dart';
 import 'package:ilford_app/helpers/validator.dart';
+import 'package:ilford_app/models/user_details.dart';
+import 'package:ilford_app/services/firestore_service.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> with Validator {
-  SignUpCubit(this._authenticationRepository) : super(const SignUpState());
+  SignUpCubit(this._authenticationRepository, this._firestoreService)
+      : super(const SignUpState());
 
   final AuthenticationRepository _authenticationRepository;
+  final FirestoreService _firestoreService;
 
   void updateFirstName(String? firstName) {
     emit(state.copyWith(
@@ -56,6 +62,25 @@ class SignUpCubit extends Cubit<SignUpState> with Validator {
         confirmPasswordObscureText: !state.confirmPasswordObscureText));
   }
 
+  bool validateSignUpDet(
+      {String? firstName,
+      String? lastName,
+      String? email,
+      String? password,
+      String? confirmPassword}) {
+    final validations = [
+      validateFirstName(firstName ?? state.firstName),
+      validateLastName(lastName ?? state.lastName),
+      validateEmail(email ?? state.email),
+      validatePassword(password ?? state.password),
+      validateConfirmPassword(
+          confirmPassword ?? state.confirmPassword, state.password),
+    ];
+
+    // If any validation is not null, return false
+    return !validations.any((validation) => validation != null);
+  }
+
   Future<void> logInWithCredentials() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: SignUpStatus.loading));
@@ -79,22 +104,48 @@ class SignUpCubit extends Cubit<SignUpState> with Validator {
 
   Future<void> signUpFormSubmitted() async {
     if (!state.isValid) return;
-    emit(state.copyWith(status: SignUpStatus.loading));
+    // emit(state.copyWith(status: SignUpStatus.loading));
+    // try {
+    //   await _authenticationRepository.signUp(
+    //     email: state.email,
+    //     password: state.password,
+    //   );
+    //   emit(state.copyWith(status: SignUpStatus.success));
+    // } on SignUpWithEmailAndPasswordFailure catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       errorMessage: e.message,
+    //       status: SignUpStatus.failure,
+    //     ),
+    //   );
+    // } catch (_) {
+    //   emit(state.copyWith(status: SignUpStatus.failure));
+    // }
+    emit(
+      state.copyWith(
+        errorMessage: 'Failed to add user',
+        status: SignUpStatus.failure,
+      ),
+    );
+    //TODO: ADD FIREBASE THINGS
+  }
+
+  Future<void> addUserDetailsToFirestore(UserDetails userDetails) async {
     try {
-      await _authenticationRepository.signUp(
-        email: state.email,
-        password: state.password,
-      );
+      await _firestoreService.addUserDetails(UserDetails(
+          firstName: state.firstName,
+          lastName: state.lastName,
+          email: state.email,
+          isVerified: false,
+          dateAdded: DateTime.now()));
       emit(state.copyWith(status: SignUpStatus.success));
-    } on SignUpWithEmailAndPasswordFailure catch (e) {
+    } catch (e) {
       emit(
         state.copyWith(
-          errorMessage: e.message,
+          errorMessage: 'Failed to add user',
           status: SignUpStatus.failure,
         ),
       );
-    } catch (_) {
-      emit(state.copyWith(status: SignUpStatus.failure));
     }
   }
 }
