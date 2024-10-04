@@ -9,7 +9,6 @@ final class SignUpState extends Equatable {
   final String confirmPassword;
   final bool passwordObscureText;
   final bool confirmPasswordObscureText;
-  final bool isValid;
   final SignUpStatus status;
   final String? errorMessage;
 
@@ -22,7 +21,6 @@ final class SignUpState extends Equatable {
       this.confirmPassword = '',
       this.passwordObscureText = true,
       this.confirmPasswordObscureText = true,
-      this.isValid = false,
       this.status = SignUpStatus.initial,
       this.errorMessage});
 
@@ -36,7 +34,6 @@ final class SignUpState extends Equatable {
         confirmPassword,
         passwordObscureText,
         confirmPasswordObscureText,
-        isValid,
         status
       ];
 
@@ -49,9 +46,9 @@ final class SignUpState extends Equatable {
       String? confirmPassword,
       bool? passwordObscureText,
       bool? confirmPasswordObscureText,
-      bool? isValid,
       SignUpStatus? status,
-      String? errorMessage}) {
+      String? errorMessage,
+      AutovalidateMode? autovalidateMode}) {
     return SignUpState(
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
@@ -62,7 +59,6 @@ final class SignUpState extends Equatable {
         passwordObscureText: passwordObscureText ?? this.passwordObscureText,
         confirmPasswordObscureText:
             confirmPasswordObscureText ?? this.confirmPasswordObscureText,
-        isValid: isValid ?? this.isValid,
         status: status ?? this.status,
         errorMessage: errorMessage ?? this.errorMessage);
   }

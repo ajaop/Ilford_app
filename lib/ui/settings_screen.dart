@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ilford_app/helpers/custom_colors.dart';
 import 'package:ilford_app/ui/account_screen.dart';
@@ -59,7 +60,9 @@ class SettingsScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                  },
                   child: const Text(
                     'Logout',
                     style: TextStyle(fontSize: 14.0, color: CustomCOlors.red7C),
