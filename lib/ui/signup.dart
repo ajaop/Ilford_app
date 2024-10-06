@@ -9,6 +9,7 @@ import 'package:ilford_app/helpers/utils.dart';
 import 'package:ilford_app/helpers/validator.dart';
 import 'package:ilford_app/services/firestore_service.dart';
 import 'package:ilford_app/ui/home_screen.dart';
+import 'package:ilford_app/ui/personal_details.dart';
 import 'package:ilford_app/ui/signin.dart';
 import 'package:ilford_app/ui/widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -197,9 +198,16 @@ class SignUp extends StatelessWidget with Validator {
                                               SignUpStatus.loading
                                           ? () async =>
                                               _formKey.currentState!.validate()
-                                                  ? await context
-                                                      .read<SignUpCubit>()
-                                                      .signUpFormSubmitted()
+                                                  ? Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute<void>(
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            PersonalDetails(),
+                                                      ))
+                                                  // await context
+                                                  //     .read<SignUpCubit>()
+                                                  //     .signUpFormSubmitted()
                                                   : print('no form key')
                                           : null,
                                       child: const Text('Sign Up')),

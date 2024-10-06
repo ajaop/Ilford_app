@@ -24,9 +24,9 @@ class SignUpCubit extends Cubit<SignUpState> with Validator {
     emit(state.copyWith(lastName: lastName, status: SignUpStatus.initial));
   }
 
-  // void updatePhone(String? phone) {
-  //   emit(state.copyWith(phone: phone));
-  // }
+  void updatePhone(String? phone) {
+    emit(state.copyWith(phone: phone, status: SignUpStatus.initial));
+  }
 
   void updateEmail(String? email) {
     emit(state.copyWith(email: email, status: SignUpStatus.initial));
@@ -39,6 +39,10 @@ class SignUpCubit extends Cubit<SignUpState> with Validator {
   void updateConfirmPassword(String? confirmPassword) {
     emit(state.copyWith(
         confirmPassword: confirmPassword, status: SignUpStatus.initial));
+  }
+
+  void updateGender(String? gender) {
+    emit(state.copyWith(gender: gender, status: SignUpStatus.initial));
   }
 
   void togglePasswordObscureText() {

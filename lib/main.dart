@@ -6,6 +6,7 @@ import 'package:ilford_app/blocs/authentication/authentication_bloc.dart';
 import 'package:ilford_app/blocs/bloc_observer.dart';
 import 'package:ilford_app/firebase_options.dart';
 import 'package:ilford_app/helpers/custom_colors.dart';
+import 'package:ilford_app/ui/personal_details.dart';
 import 'package:ilford_app/ui/signin.dart';
 
 Future<void> main() async {
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
                 ColorScheme.fromSeed(seedColor: CustomCOlors.primaryColor),
             useMaterial3: true,
           ),
-          home: SignIn(),
+          home: PersonalDetails(),
         ),
       ),
     );

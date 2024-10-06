@@ -7,6 +7,7 @@ final class SignUpState extends Equatable {
   final String email;
   final String password;
   final String confirmPassword;
+  final String gender;
   final bool passwordObscureText;
   final bool confirmPasswordObscureText;
   final SignUpStatus status;
@@ -19,6 +20,7 @@ final class SignUpState extends Equatable {
       this.email = '',
       this.password = '',
       this.confirmPassword = '',
+      this.gender = '',
       this.passwordObscureText = true,
       this.confirmPasswordObscureText = true,
       this.status = SignUpStatus.initial,
@@ -32,6 +34,7 @@ final class SignUpState extends Equatable {
         email,
         password,
         confirmPassword,
+        gender,
         passwordObscureText,
         confirmPasswordObscureText,
         status
@@ -44,6 +47,7 @@ final class SignUpState extends Equatable {
       String? email,
       String? password,
       String? confirmPassword,
+      String? gender,
       bool? passwordObscureText,
       bool? confirmPasswordObscureText,
       SignUpStatus? status,
@@ -56,6 +60,7 @@ final class SignUpState extends Equatable {
         email: email ?? this.email,
         password: password ?? this.password,
         confirmPassword: confirmPassword ?? this.confirmPassword,
+        gender: gender ?? this.gender,
         passwordObscureText: passwordObscureText ?? this.passwordObscureText,
         confirmPasswordObscureText:
             confirmPasswordObscureText ?? this.confirmPasswordObscureText,
